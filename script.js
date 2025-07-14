@@ -1,4 +1,3 @@
-console.log("🎯 script.js cargado");
 const cursos = [
   // SEMESTRE I
   { nombre: "INTRODUCCIÓN A LA PROGRAMACIÓN", sigla: "IIC1103", creditos: 10, semestre: 1, tipo: "economia" },
