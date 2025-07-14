@@ -1,1 +1,54 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-color: #f5f5f5;
+}
+
+h1 {
+  text-align: center;
+}
+
+#malla-container {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 15px;
+  position: relative;
+}
+
+.curso {
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.curso:hover {
+  transform: scale(1.05);
+}
+
+.economia {
+  background-color: #cce0ff;
+}
+
+.administracion {
+  background-color: #fffacc;
+}
+
+.formacion-general {
+  background-color: #ccefff;
+}
+
+.curso-minor {
+  background-color: #ffff66;
+}
+
+.requisito {
+  border: 2px solid black;
+}
+
+.prerequisito {
+  border: 2px dashed black;
+}
 
