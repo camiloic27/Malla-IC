@@ -62,7 +62,18 @@ const cursos = [
 
 const container = document.getElementById("malla-container");
 
-// Agregar títulos de semestre en fila 1
+// Agrupar cursos por semestre
+const cursosPorSemestre = {};
+for (let i = 1; i <= 8; i++) cursosPorSemestre[i] = [];
+cursos.forEach(curso => cursosPorSemestre[curso.semestre].push(curso));
+
+// Calcular máximo cursos en un semestre
+const maxCursos = Math.max(...Object.values(cursosPorSemestre).map(arr => arr.length));
+
+// Definir filas del grid: 1 fila para títulos + maxCursos filas para cursos
+container.style.gridTemplateRows = `auto repeat(${maxCursos}, minmax(80px, auto))`;
+
+// Agregar títulos en fila 1
 for (let i = 1; i <= 8; i++) {
   const titulo = document.createElement("div");
   titulo.classList.add("semestre-titulo");
@@ -72,17 +83,8 @@ for (let i = 1; i <= 8; i++) {
   container.appendChild(titulo);
 }
 
-// Agrupar cursos por semestre
-const cursosPorSemestre = {};
-for(let i = 1; i <= 8; i++) {
-  cursosPorSemestre[i] = [];
-}
-cursos.forEach(curso => {
-  cursosPorSemestre[curso.semestre].push(curso);
-});
-
-// Agregar cursos, asignando fila según el índice dentro del semestre + 2 (porque fila 1 son títulos)
-for(let semestre = 1; semestre <= 8; semestre++) {
+// Agregar cursos en fila index+2 para que no se monten
+for (let semestre = 1; semestre <= 8; semestre++) {
   cursosPorSemestre[semestre].forEach((curso, index) => {
     const div = document.createElement("div");
     div.classList.add("curso", curso.tipo);
@@ -92,3 +94,4 @@ for(let semestre = 1; semestre <= 8; semestre++) {
     container.appendChild(div);
   });
 }
+
