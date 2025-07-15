@@ -11,7 +11,7 @@ h1 {
 #malla-container {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  grid-auto-rows: minmax(80px, auto);
+  /* filas definidas dinámicamente en JS */
   gap: 15px;
   position: relative;
 }
@@ -66,3 +66,4 @@ h1 {
 .prerequisito {
   border: 2px dashed black;
 }
+
