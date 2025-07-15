@@ -92,4 +92,3 @@ for(let semestre = 1; semestre <= 8; semestre++) {
     container.appendChild(div);
   });
 }
-
