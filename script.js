@@ -24,24 +24,26 @@ const cursos = [
   { nombre: "MICROECONOMÍA I", sigla: "EAE2110", creditos: 10, semestre: 4, tipo: "economia", requisitos: ["EAF2010", "EAE1220"] },
   { nombre: "ESTRATEGIA DE LA ORGANIZACIÓN", sigla: "EAA2410", creditos: 10, semestre: 4, tipo: "administracion", requisitos: ["EAE1110", "EAA1220"] },
   { nombre: "FUNDAMENTOS DE MARKETING", sigla: "EAA2310", creditos: 10, semestre: 4, tipo: "administracion", requisitos: ["EAA1210", "EAA1110", "EAA1510"] },
-
-  // Puedes añadir más cursos y requisitos si quieres
 ];
 
-// Estado global: aprobado y habilitado
 const estadoCursos = {};
 cursos.forEach(c => {
   estadoCursos[c.sigla] = { aprobado: false, habilitado: false };
 });
 
-// Habilitar cursos sin requisitos al inicio
-cursos.forEach(c => {
-  if ((!c.requisitos || c.requisitos.length === 0) && (!c.corequisitos || c.corequisitos.length === 0)) {
-    estadoCursos[c.sigla].habilitado = true;
-  }
-});
+// Esta función habilita los cursos sin requisitos al principio
+function habilitarInicial() {
+  cursos.forEach(c => {
+    const tieneReqs = c.requisitos && c.requisitos.length > 0;
+    const tieneCoreqs = c.corequisitos && c.corequisitos.length > 0;
+    if (!tieneReqs && !tieneCoreqs) {
+      estadoCursos[c.sigla].habilitado = true;
+    }
+  });
+}
 
-// Agrupar por semestre
+habilitarInicial();
+
 const cursosPorSemestre = {};
 for (let i = 1; i <= 8; i++) cursosPorSemestre[i] = [];
 cursos.forEach(c => cursosPorSemestre[c.semestre].push(c));
@@ -50,7 +52,6 @@ const container = document.getElementById("malla-container");
 const maxCursos = Math.max(...Object.values(cursosPorSemestre).map(arr => arr.length));
 container.style.gridTemplateRows = `auto repeat(${maxCursos}, minmax(70px, auto))`;
 
-// Títulos semestre
 for (let i = 1; i <= 8; i++) {
   const titulo = document.createElement("div");
   titulo.classList.add("semestre-titulo");
@@ -100,7 +101,6 @@ function habilitarCursosDependientes(siglaAprobado) {
   });
 }
 
-// Primera visualización
 actualizarVisualizacion();
 
 container.addEventListener("click", e => {
@@ -118,4 +118,5 @@ container.addEventListener("click", e => {
     actualizarVisualizacion();
   }
 });
+
 
