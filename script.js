@@ -67,18 +67,29 @@ for (let i = 1; i <= 8; i++) {
   const titulo = document.createElement("div");
   titulo.classList.add("semestre-titulo");
   titulo.style.gridColumn = i;
-  titulo.style.gridRow = 1; // primera fila para títulos
+  titulo.style.gridRow = 1;
   titulo.textContent = `${i}° Semestre`;
   container.appendChild(titulo);
 }
 
-// Agregar cursos en la fila correspondiente (semestre + 1)
+// Agrupar cursos por semestre
+const cursosPorSemestre = {};
+for(let i = 1; i <= 8; i++) {
+  cursosPorSemestre[i] = [];
+}
 cursos.forEach(curso => {
-  const div = document.createElement("div");
-  div.classList.add("curso", curso.tipo);
-  div.innerHTML = `<strong>${curso.sigla}</strong><br>${curso.nombre}<br><span>${curso.creditos} CR</span>`;
-  div.style.gridColumn = curso.semestre;
-  div.style.gridRow = curso.semestre + 1; // fila 2 a 9 según semestre
-  container.appendChild(div);
+  cursosPorSemestre[curso.semestre].push(curso);
 });
+
+// Agregar cursos, asignando fila según el índice dentro del semestre + 2 (porque fila 1 son títulos)
+for(let semestre = 1; semestre <= 8; semestre++) {
+  cursosPorSemestre[semestre].forEach((curso, index) => {
+    const div = document.createElement("div");
+    div.classList.add("curso", curso.tipo);
+    div.innerHTML = `<strong>${curso.sigla}</strong><br>${curso.nombre}<br><span>${curso.creditos} CR</span>`;
+    div.style.gridColumn = semestre;
+    div.style.gridRow = index + 2;
+    container.appendChild(div);
+  });
+}
 
