@@ -62,10 +62,23 @@ const cursos = [
 
 const container = document.getElementById("malla-container");
 
+// Agregar títulos de semestre en fila 1
+for (let i = 1; i <= 8; i++) {
+  const titulo = document.createElement("div");
+  titulo.classList.add("semestre-titulo");
+  titulo.style.gridColumn = i;
+  titulo.style.gridRow = 1; // primera fila para títulos
+  titulo.textContent = `${i}° Semestre`;
+  container.appendChild(titulo);
+}
+
+// Agregar cursos en la fila correspondiente (semestre + 1)
 cursos.forEach(curso => {
   const div = document.createElement("div");
   div.classList.add("curso", curso.tipo);
-  div.innerHTML = `<strong>${curso.sigla}</strong><br>${curso.nombre}<br><span>${curso.creditos}CR</span>`;
+  div.innerHTML = `<strong>${curso.sigla}</strong><br>${curso.nombre}<br><span>${curso.creditos} CR</span>`;
   div.style.gridColumn = curso.semestre;
+  div.style.gridRow = curso.semestre + 1; // fila 2 a 9 según semestre
   container.appendChild(div);
 });
+
